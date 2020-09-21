@@ -1,7 +1,9 @@
 from pathlib import Path
 
+
 class SceneFile(object):
     """An abstract representation of a Scene file."""
+
     def __init__(self, path):
         self.folder_path = Path()
         self.descriptor = 'main'
@@ -27,8 +29,6 @@ class SceneFile(object):
         self.ver = int(ver.split("v")[-1])
 
 
-
 scene_file = SceneFile("D:/tank_model_v001.ma")
 print(scene_file.path)
 print(scene_file.filename)
-
