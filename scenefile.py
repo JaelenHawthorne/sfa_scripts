@@ -1,9 +1,8 @@
-from pathlib import Path
+from pymel.core.system import Path
 
 
 class SceneFile(object):
     """An abstract representation of a Scene file."""
-
     def __init__(self, path):
         self.folder_path = Path()
         self.descriptor = 'main'
@@ -24,8 +23,8 @@ class SceneFile(object):
     def _init_from_path(self, path):
         path = Path(path)
         self.folder_path = path.parent
-        self.ext = path.suffix
-        self.descriptor, self.task, ver = path.stem.split("_")
+        self.ext = path.ext
+        self.descriptor, self.task, ver = path.name.stripext().split("_")
         self.ver = int(ver.split("v")[-1])
 
 
