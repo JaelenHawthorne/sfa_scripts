@@ -1,11 +1,8 @@
 import logging
 
-<<<<<<< 953c269b2ea103b44d6a57dad63b21d75ef06646:SRC/scenefile.py
-=======
 from PySide2 import QtWidgets, QtCore
 from shiboken2 import wrapInstance
 import maya.OpenMayaUI as omui
->>>>>>> Assignment04A:SRC/smartsave.py
 import pymel.core as pmc
 from pymel.core.system import Path
 
