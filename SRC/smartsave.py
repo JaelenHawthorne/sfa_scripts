@@ -9,7 +9,6 @@ from pymel.core.system import Path
 
 log = logging.getLogger(__name__)
 
-
 def maya_main_window():
     """Return the maya main window widget"""
     main_window = omui.MQtUtil.mainWindow()
@@ -48,7 +47,7 @@ class SmartSaveUI(QtWidgets.QDialog):
         """Connects signals and slots"""
         self.folder_browse_btn.clicked.connect(self._browse_folder)
         self.save_btn.clicked.connect(self._save)
-       
+        self.save_increment_btn.clicked.connect(self._save_increment)
 
 
     @QtCore.Slot()
