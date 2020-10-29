@@ -1,11 +1,13 @@
 import maya.cmds as cmds
 selecttion = cmds.ls(orderedSelection=True, flatten=True)
 
-
 verts = cmds.ls("pSphere1.vtx[*]", flatten = True)
 print(verts)
 
-for point in verts:
+for idx in range(len(verts)):
+    if idx%3:
+        continue
+    point = verts[idx]
     print(point)
     scatter_instance = cmds.instance(selecttion[0], name = "cube")
     pos = cmds.pointPosition(point, world = True)
