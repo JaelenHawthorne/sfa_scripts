@@ -22,7 +22,6 @@ for idx in range(len(verts)):
 
     pos = cmds.pointPosition(point, world=True)
     print(pos)
-    """move instance to vertices"""
     cmds.move(pos[0], pos[1], pos[2], scatter_instance, worldSpace=True)
-    """rotate instance in random direction"""
     cmds.rotate(xRot, yRot, zRot, scatter_instance, worldSpace=True)
+    cmds.scale(scalingFactor, scalingFactor, scalingFactor, scatter_instance, worldSpace=True)
