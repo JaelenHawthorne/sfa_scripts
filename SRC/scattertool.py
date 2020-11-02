@@ -31,8 +31,8 @@ class ScatterToolUI(QtWidgets.QDialog):
     def create_ui(self):
         self.title_lbl = QtWidgets.QLabel("Scatter Tool")
         self.title_lbl.setStyleSheet("font: bold 19px")
-        self.objectToScatter_lbl = QtWidgets.QLabel("Object To Scatter: " + selecttion[-1])
-        self.objectToScatterTo_lbl = QtWidgets.QLabel("Object To Scatter To: " + selecttion[0])
+        self.objectToScatter_lbl = QtWidgets.QLabel("Object To Scatter: " + selecttion[0])
+        self.objectToScatterTo_lbl = QtWidgets.QLabel("Object To Scatter To: " + selecttion[1])
         self.button_lay = self._create_button_UI()
         self.scale_lay = self._create_scale_UI()
         self.rot_lay = self._create_rotation_UI()
@@ -66,7 +66,9 @@ class ScatterToolUI(QtWidgets.QDialog):
 
     def _create_rotation_UI(self):
         self.maxRot_spx = QtWidgets.QSpinBox()
+        self.maxRot_spx.setMaximum(365)
         self.minRot_spx = QtWidgets.QSpinBox()
+        self.minRot_spx.setMaximum(365)
         layout = QtWidgets.QHBoxLayout()
         layout.addWidget(QtWidgets.QLabel("ROTATION"), 1, 0)
         layout.addWidget(QtWidgets.QLabel("min angle"), 1, 2)
