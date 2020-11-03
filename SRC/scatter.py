@@ -83,13 +83,11 @@ class ScatterToolUI(QtWidgets.QDialog):
 
     def scatterObject(self):
         random.seed(1234)
-
-
         objectToScatterTo = str(selecttion[1])
 
         verts = cmds.ls(objectToScatterTo + ".vtx[*]", flatten=True)
         print(verts)
-
+        """Idex feature to help affect the density of the vertices selected later"""
         for idx in range(len(verts)):
             if idx % 3:
                 continue
