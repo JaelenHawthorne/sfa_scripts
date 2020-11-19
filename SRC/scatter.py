@@ -57,10 +57,10 @@ class ScatterToolUI(QtWidgets.QDialog):
         self.maxScale_dspx = QtWidgets.QDoubleSpinBox()
         self.minScale_dspx = QtWidgets.QDoubleSpinBox()
         layout = QtWidgets.QHBoxLayout()
-        layout.addWidget(QtWidgets.QLabel("SCALE"), 1, 0)
-        layout.addWidget(QtWidgets.QLabel("min"), 1, 2)
+        layout.addWidget(QtWidgets.QLabel("SCALE"), 1)
+        layout.addWidget(QtWidgets.QLabel("min"), 1)
         layout.addWidget(self.minScale_dspx)
-        layout.addWidget(QtWidgets.QLabel("max"), 1, 3)
+        layout.addWidget(QtWidgets.QLabel("max"), 1)
         layout.addWidget(self.maxScale_dspx)
         return layout
 
@@ -70,10 +70,10 @@ class ScatterToolUI(QtWidgets.QDialog):
         self.minRot_spx = QtWidgets.QSpinBox()
         self.minRot_spx.setMaximum(365)
         layout = QtWidgets.QHBoxLayout()
-        layout.addWidget(QtWidgets.QLabel("ROTATION"), 1, 0)
-        layout.addWidget(QtWidgets.QLabel("min angle"), 1, 2)
+        layout.addWidget(QtWidgets.QLabel("ROTATION"), 1)
+        layout.addWidget(QtWidgets.QLabel("min angle"), 1)
         layout.addWidget(self.minRot_spx)
-        layout.addWidget(QtWidgets.QLabel("max angle"), 1, 3)
+        layout.addWidget(QtWidgets.QLabel("max angle"), 1)
         layout.addWidget(self.maxRot_spx)
         return layout
 
@@ -87,7 +87,7 @@ class ScatterToolUI(QtWidgets.QDialog):
 
         verts = cmds.ls(objectToScatterTo + ".vtx[*]", flatten=True)
         print(verts)
-        """Idex feature to help affect the density of the vertices selected later"""
+        """Index feature to help affect the density of the vertices selected later"""
         for idx in range(len(verts)):
             if idx % 3:
                 continue
@@ -106,6 +106,11 @@ class ScatterToolUI(QtWidgets.QDialog):
             cmds.move(pos[0], pos[1], pos[2], scatter_instance, worldSpace=True)
             cmds.rotate(xRot, yRot, zRot, scatter_instance, worldSpace=True)
             cmds.scale(scalingFactor, scalingFactor, scalingFactor, scatter_instance, worldSpace=True)
+            """normals"""
+            ncos = cmds.normalConstraint([point], scatter_instance)
+            cmds.delete(ncos)
+
+
 
 
 
