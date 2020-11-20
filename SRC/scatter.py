@@ -122,18 +122,22 @@ class ScatterToolUI(QtWidgets.QDialog):
 
         verts = cmds.ls(objectToScatterTo + ".vtx[*]", flatten=True)
         print(verts)
-        """Index feature to help affect the density of the vertices selected later"""
+        """Index feature to help affect the density of the vertices selected """
         for idx in range(len(verts)):
             if idx % self.scatterDensity_spx.value():
                 continue
             point = verts[idx]
             print(point)
+
+            """first object selected"""
             scatter_instance = cmds.instance(selecttion[0], name="instance")
 
+            """change instance rotation based on input"""
             xRot = random.uniform(self.minRot_spx.value(), self.maxRot_spx.value())
             yRot = random.uniform(self.minRot_spx.value(), self.maxRot_spx.value())
             zRot = random.uniform(self.minRot_spx.value(), self.maxRot_spx.value())
 
+            """Change instance scale based on input"""
             scalingFactor = random.uniform(self.minScale_dspx.value(), self.maxScale_dspx.value())
 
             pos = cmds.pointPosition(point, world=True)
@@ -153,4 +157,4 @@ class ScatterToolUI(QtWidgets.QDialog):
 
     def UNDO(self):
         cmds.undo()
-"""special button for next assignment, undo button"""
+"""personal addition, undo button"""
