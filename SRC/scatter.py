@@ -48,9 +48,11 @@ class ScatterToolUI(QtWidgets.QDialog):
     def _create_button_UI(self):
         self.scatter_btn = QtWidgets.QPushButton("Scatter")
         self.undo_btn = QtWidgets.QPushButton("Undo")
+        self.scatterSelection_btn = QtWidgets.QPushButton("Scatter to Selection")
         layout = QtWidgets.QHBoxLayout()
         layout.addWidget(self.scatter_btn)
         layout.addWidget(self.undo_btn)
+        layout.addWidget(self.scatterSelection_btn)
         return layout
 
     def _create_scale_UI(self):
@@ -80,6 +82,30 @@ class ScatterToolUI(QtWidgets.QDialog):
     def create_connection(self):
         self.scatter_btn.clicked.connect(self.scatterObject)
         self.undo_btn.clicked.connect(self.UNDO)
+        self.scatterSelection_btn.clicked.connect(self.scatterToVerts)
+
+    def scatterToVerts(self):
+        random.seed(1234)
+        verts = cmds.ls(selection=True, flatten=True)
+
+        for vert in verts:
+            pos = cmds.xform([vert], query=True, worldSpace=True, translation=True)
+            scatter_instance = cmds.instance(selecttion[0], name="scat_inst")
+
+            xRot = random.uniform(self.minRot_spx.value(), self.maxRot_spx.value())
+            yRot = random.uniform(self.minRot_spx.value(), self.maxRot_spx.value())
+            zRot = random.uniform(self.minRot_spx.value(), self.maxRot_spx.value())
+
+            scalingFactor = random.uniform(self.minScale_dspx.value(), self.maxScale_dspx.value())
+
+            cmds.move(pos[0], pos[1], pos[2], scatter_instance, worldSpace=True)
+
+            cmds.rotate(xRot, yRot, zRot, scatter_instance, worldSpace=True)
+            cmds.scale(scalingFactor, scalingFactor, scalingFactor, scatter_instance, worldSpace=True)
+
+            ncos = cmds.normalConstraint([vert], scatter_instance)
+            cmds.delete(ncos)
+
 
     def scatterObject(self):
         random.seed(1234)
