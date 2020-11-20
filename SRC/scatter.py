@@ -34,19 +34,21 @@ class ScatterToolUI(QtWidgets.QDialog):
         self.objectToScatter_lbl = QtWidgets.QLabel("Object To Scatter: " + selecttion[0])
         self.objectToScatterTo_lbl = QtWidgets.QLabel("Object To Scatter To: " + selecttion[1])
         self.button_lay = self._create_button_UI()
+        self.density_lay = self._create_density_UI()
         self.scale_lay = self._create_scale_UI()
         self.rot_lay = self._create_rotation_UI()
         self.main_lay = QtWidgets.QVBoxLayout()
         self.main_lay.addWidget(self.title_lbl)
         self.main_lay.addWidget(self.objectToScatter_lbl)
         self.main_lay.addWidget(self.objectToScatterTo_lbl)
+        self.main_lay.addLayout(self.density_lay)
         self.main_lay.addLayout(self.scale_lay)
         self.main_lay.addLayout(self.rot_lay)
         self.main_lay.addLayout(self.button_lay)
         self.setLayout(self.main_lay)
 
     def _create_button_UI(self):
-        self.scatter_btn = QtWidgets.QPushButton("Scatter")
+        self.scatter_btn = QtWidgets.QPushButton("Scatter to whole")
         self.undo_btn = QtWidgets.QPushButton("Undo")
         self.scatterSelection_btn = QtWidgets.QPushButton("Scatter to Selection")
         layout = QtWidgets.QHBoxLayout()
@@ -55,14 +57,21 @@ class ScatterToolUI(QtWidgets.QDialog):
         layout.addWidget(self.scatterSelection_btn)
         return layout
 
+    def _create_density_UI(self):
+        self.scatterDensity_spx = QtWidgets.QSpinBox()
+        layout = QtWidgets.QHBoxLayout()
+        layout.addWidget(QtWidgets.QLabel("DENSITY:"), -1)
+        layout.addWidget(self.scatterDensity_spx)
+        return layout
+
     def _create_scale_UI(self):
         self.maxScale_dspx = QtWidgets.QDoubleSpinBox()
         self.minScale_dspx = QtWidgets.QDoubleSpinBox()
         layout = QtWidgets.QHBoxLayout()
-        layout.addWidget(QtWidgets.QLabel("SCALE"), 1)
-        layout.addWidget(QtWidgets.QLabel("min"), 1)
+        layout.addWidget(QtWidgets.QLabel("SCALE:"), 0)
+        layout.addWidget(QtWidgets.QLabel("min:"), 0)
         layout.addWidget(self.minScale_dspx)
-        layout.addWidget(QtWidgets.QLabel("max"), 1)
+        layout.addWidget(QtWidgets.QLabel("max:"), 0)
         layout.addWidget(self.maxScale_dspx)
         return layout
 
@@ -72,10 +81,10 @@ class ScatterToolUI(QtWidgets.QDialog):
         self.minRot_spx = QtWidgets.QSpinBox()
         self.minRot_spx.setMaximum(365)
         layout = QtWidgets.QHBoxLayout()
-        layout.addWidget(QtWidgets.QLabel("ROTATION"), 1)
-        layout.addWidget(QtWidgets.QLabel("min angle"), 1)
+        layout.addWidget(QtWidgets.QLabel("ROTATION:"), 0)
+        layout.addWidget(QtWidgets.QLabel("min angle:"), 0)
         layout.addWidget(self.minRot_spx)
-        layout.addWidget(QtWidgets.QLabel("max angle"), 1)
+        layout.addWidget(QtWidgets.QLabel("max angle:"), 0)
         layout.addWidget(self.maxRot_spx)
         return layout
 
@@ -115,7 +124,7 @@ class ScatterToolUI(QtWidgets.QDialog):
         print(verts)
         """Index feature to help affect the density of the vertices selected later"""
         for idx in range(len(verts)):
-            if idx % 3:
+            if idx % self.scatterDensity_spx.value():
                 continue
             point = verts[idx]
             print(point)
